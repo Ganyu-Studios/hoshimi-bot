@@ -42,66 +42,74 @@ const storage: MeowDB = new MeowDB({ dir, name });
  * @type {Map<string, string>}
  */
 const ids: Map<string, string> = new Map<string, string>(
-    Object.values<RequiredPlayerJson>(storage.all())
-        .filter(
-            (session): session is RequiredPlayerJson => typeof session.node.id === "string" && typeof session.node.sessionId === "string",
-        )
-        .map((session) => [session.node.id, session.node.sessionId!]),
+	Object.values<RequiredPlayerJson>(storage.all())
+		.filter(
+			(session): session is RequiredPlayerJson =>
+				typeof session.node.id === "string" &&
+				typeof session.node.sessionId === "string",
+		)
+		.map((session) => [session.node.id, session.node.sessionId!]),
 );
 
 /**
  * Utility to manage Lavalink node sessions.
  */
 export const Sessions = {
-    /**
-     *
-     * Set the session of the player.
-     * @param {string} id The id of the session
-     * @param {string} value The value of the session.
-     * @returns {void} Saves the session to storage.
-     */
-    set<T>(id: string, value: T): void {
-        storage.set<T>(id, value);
-        return;
-    },
-    /**
-     * Get the session of the player.
-     * @param {string} id The id of the session.
-     * @returns {T | undefined} The value of the session.
-     */
-    get<T>(id: string): T | undefined {
-        return storage.get<T>(id);
-    },
-    /**
-     * Delete the session of the player.
-     * @param {string} id The id of the session.
-     * @returns {boolean} Whether the session was deleted or not.
-     */
-    delete(id: string): boolean {
-        // this throws an error if there's no session with the id.
-        return storage.exists(id) && storage.delete(id);
-    },
-    /**
-     * Resolves the  node options to include the session id.
-     * @param {RestOrArray<NonResumableNodeOptions>} nodes The nodes to resolve.
-     * @returns {LavalinkNodeOptions[]} The resolved nodes.
-     */
-    resolve(...nodes: RestOrArray<NonResumableNodeOptions>): NodeOptions[] {
-        nodes = nodes.flat();
+	/**
+	 *
+	 * Set the session of the player.
+	 * @param {string} id The id of the session
+	 * @param {string} value The value of the session.
+	 * @returns {void} Saves the session to storage.
+	 */
+	set<T>(id: string, value: T): void {
+		storage.set<T>(id, value);
+		return;
+	},
+	/**
+	 * Get the session of the player.
+	 * @param {string} id The id of the session.
+	 * @returns {T | undefined} The value of the session.
+	 */
+	get<T>(id: string): T | undefined {
+		return storage.get<T>(id);
+	},
+	/**
+	 * Delete the session of the player.
+	 * @param {string} id The id of the session.
+	 * @returns {boolean} Whether the session was deleted or not.
+	 */
+	delete(id: string): boolean {
+		// this throws an error if there's no session with the id.
+		return storage.exists(id) && storage.delete(id);
+	},
+	/**
+	 * Resolves the  node options to include the session id.
+	 * @param {RestOrArray<NonResumableNodeOptions>} nodes The nodes to resolve.
+	 * @returns {LavalinkNodeOptions[]} The resolved nodes.
+	 */
+	resolve(...nodes: RestOrArray<NonResumableNodeOptions>): NodeOptions[] {
+		nodes = nodes.flat();
 
-        if (nodes.some((node) => "sessionId" in node && typeof node.sessionId === "string"))
-            throw new Error("The 'sessionId' property is not allowed in the node options.");
+		if (
+			nodes.some(
+				(node) => "sessionId" in node && typeof node.sessionId === "string",
+			)
+		)
+			throw new Error(
+				"The 'sessionId' property is not allowed in the node options.",
+			);
 
-        return nodes.map((node) => {
-            // default settings, if not set by the user.
-            node.id ??= `${node.host}:${node.port}`;
-            node.retryAmount ??= 25;
-            node.retryDelay ??= ms("25s");
+		return nodes.map((node) => {
+			// default settings, if not set by the user.
+			node.id ??= `${node.host}:${node.port}`;
+			node.retryAmount ??= 25;
+			node.retryDelay ??= ms("25s");
 
-            return {
-                ...node,
-                sessionId: ids.get(node.id),
-            };
-        });
-    },
+			return {
+				...node,
+				sessionId: ids.get(node.id),
+			};
+		});
+	},
 };

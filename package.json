@@ -1,46 +1,54 @@
 {
-    "name": "hoshimi-bot",
-    "version": "1.0.0",
-    "description": "A example bot to show how to use hoshimi",
-    "main": "./src/index.ts",
-    "type": "module",
-    "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
-    "keywords": [],
-    "author": "Ganyu Studios",
-    "license": "MIT",
-    "contributors": [
-        {
-            "url": "https://github.com/EvilG-MC",
-            "name": "JustEvil (EvilG-MC)"
-        }
-    ],
-    "scripts": {
-        "typecheck": "tsc --noEmit",
-        "start": "tsx ./src/index.ts",
-        "dev": "tsx ./src/index.ts --debug",
-        "lint": "biome lint --write .",
-        "format": "biome format --write ."
-    },
-    "dependencies": {
-        "dotenv": "^17.3.1",
-        "hoshimi": "0.3.10-dev-23828974267.0",
-        "meowdb": "^2.2.3",
-        "redis": "^5.11.0",
-        "seyfert": "github:tiramisulabs/seyfert",
-        "yunaforseyfert": "github:SagiriIkeda/yunaforseyfert"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "^2.4.10",
-        "@types/node": "^25.5.0",
-        "tsx": "^4.21.0",
-        "typescript": "^6.0.2"
-    },
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "@biomejs/biome",
-            "esbuild",
-            "seyfert",
-            "yunaforseyfert"
-        ]
-    }
+	"name": "hoshimi-bot",
+	"version": "1.0.0",
+	"description": "A example bot to show how to use hoshimi",
+	"main": "./src/index.ts",
+	"type": "module",
+	"packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
+	"keywords": [],
+	"author": "Ganyu Studios",
+	"license": "MIT",
+	"lint-staged": {
+		"*.{ts,json}": [
+			"pnpm format"
+		]
+	},
+	"contributors": [
+		{
+			"url": "https://github.com/EvilG-MC",
+			"name": "JustEvil (EvilG-MC)"
+		}
+	],
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"start": "tsx ./src/index.ts",
+		"dev": "tsx ./src/index.ts --debug",
+		"lint": "biome lint --write .",
+		"format": "biome format --write .",
+		"prepare": "husky"
+	},
+	"dependencies": {
+		"dotenv": "^17.4.0",
+		"hoshimi": "0.3.10-dev-23828974267.0",
+		"meowdb": "^2.2.3",
+		"redis": "^5.11.0",
+		"seyfert": "github:tiramisulabs/seyfert",
+		"yunaforseyfert": "github:SagiriIkeda/yunaforseyfert"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.10",
+		"@types/node": "^25.5.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.4.0",
+		"tsx": "^4.21.0",
+		"typescript": "^6.0.2"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@biomejs/biome",
+			"esbuild",
+			"seyfert",
+			"yunaforseyfert"
+		]
+	}
 }
