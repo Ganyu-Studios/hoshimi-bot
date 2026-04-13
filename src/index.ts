@@ -1,13 +1,6 @@
 import "dotenv/config";
 
-import {
-	createHoshimi,
-	type Hoshimi,
-	type LyricsResult,
-	Player,
-	SearchSources,
-	Structures,
-} from "hoshimi";
+import { createHoshimi, type Hoshimi, type LyricsResult, Player, SearchSources, Structures } from "hoshimi";
 import { Client, type ParseClient, type UsingClient } from "seyfert";
 import { HandleCommand } from "seyfert/lib/commands/handle.js";
 import { Yuna } from "yunaforseyfert";
@@ -27,17 +20,17 @@ import { ms } from "./time.js";
  * @type {Client<true> & UsingClient}
  */
 const client: Client<true> & UsingClient = new Client({
-	allowedMentions: {
-		parse: ["roles", "users"],
-		replied_user: false,
-	},
-	commands: {
-		prefix: () => ["hoshimi", "h."],
-		reply: () => true,
-		deferReplyResponse: ({ client }) => ({
-			content: `**${client.me.username}** is thinking...`,
-		}),
-	},
+    allowedMentions: {
+        parse: ["roles", "users"],
+        replied_user: false,
+    },
+    commands: {
+        prefix: () => ["hoshimi", "h."],
+        reply: () => true,
+        deferReplyResponse: ({ client }) => ({
+            content: `**${client.me.username}** is thinking...`,
+        }),
+    },
 }) as Client<true> & UsingClient;
 
 /**
@@ -48,39 +41,38 @@ const redis: RedisClient = new RedisClient(client);
 
 // Initialize the manager with a helper function.
 client.manager = createHoshimi({
-	sendPayload: (guildId, payload) =>
-		client.gateway.send(client.gateway.calculateShardId(guildId), payload),
-	defaultSearchSource: SearchSources.Spotify,
-	nodeOptions: {
-		resumable: true,
-		resumeByLibrary: true,
-		resumeTimeout: ms("5min"),
-	},
-	queueOptions: {
-		autoplayFn,
-		storage: new RedisStorage(redis),
-	},
-	playerOptions: {
-		onDisconnect: {
-			autoDestroy: true,
-		},
-	},
-	nodes: Sessions.resolve({
-		host: "localhost",
-		port: 2333,
-		password: "ganyuontopuwu",
-	}),
+    sendPayload: (guildId, payload) => client.gateway.send(client.gateway.calculateShardId(guildId), payload),
+    defaultSearchSource: SearchSources.Spotify,
+    nodeOptions: {
+        resumable: true,
+        resumeByLibrary: true,
+        resumeTimeout: ms("5min"),
+    },
+    queueOptions: {
+        autoplayFn,
+        storage: new RedisStorage(redis),
+    },
+    playerOptions: {
+        onDisconnect: {
+            autoDestroy: true,
+        },
+    },
+    nodes: Sessions.resolve({
+        host: "localhost",
+        port: 2333,
+        password: "ganyuontopuwu",
+    }),
 });
 
 // Set the client services.
 client.setServices({
-	handleCommand: class extends HandleCommand {
-		override argsParser = Yuna.parser({
-			syntax: {
-				namedOptions: ["-", "--"],
-			},
-		});
-	},
+    handleCommand: class extends HandleCommand {
+        override argsParser = Yuna.parser({
+            syntax: {
+                namedOptions: ["-", "--"],
+            },
+        });
+    },
 });
 
 // Extend the player with whatever you want.
@@ -103,50 +95,50 @@ const handler: LavalinkHandler = new LavalinkHandler(client);
 
 // The main process of the bot.
 (async (): Promise<void> => {
-	// Start the lavalink handler, redis and the client.
-	await redis.start();
-	await handler.start();
-	await client.start();
+    // Start the lavalink handler, redis and the client.
+    await redis.start();
+    await handler.start();
+    await client.start();
 })();
 
 declare module "seyfert" {
-	interface UsingClient extends ParseClient<Client<true>> {}
+    interface UsingClient extends ParseClient<Client<true>> {}
 
-	interface InternalOptions {
-		withPrefix: true;
-	}
+    interface InternalOptions {
+        withPrefix: true;
+    }
 
-	interface Client {
-		manager: Hoshimi;
-	}
+    interface Client {
+        manager: Hoshimi;
+    }
 
-	interface ExtendedRCLocations {
-		lavalink: string;
-	}
+    interface ExtendedRCLocations {
+        lavalink: string;
+    }
 }
 
 declare module "hoshimi" {
-	interface CustomizableTrack {
-		requester: HoshimiUser;
-	}
+    interface CustomizableTrack {
+        requester: HoshimiUser;
+    }
 
-	interface CustomizablePlayerStorage {
-		enabledAutoplay: boolean;
-		enabledLyrics: boolean;
-		lyricsId: string;
-		lyrics: LyricsResult;
-	}
+    interface CustomizablePlayerStorage {
+        enabledAutoplay: boolean;
+        enabledLyrics: boolean;
+        lyricsId: string;
+        lyrics: LyricsResult;
+    }
 
-	interface CustomizableStructures {
-		Player: HoshimiPlayer;
-		Node: HoshimiNode;
-		LyricsManager: HoshimiLyricsManager;
-	}
+    interface CustomizableStructures {
+        Player: HoshimiPlayer;
+        Node: HoshimiNode;
+        LyricsManager: HoshimiLyricsManager;
+    }
 
-	interface CustomizableSources {
-		bilibili: "bilibili";
-		azsearch: "amazonmusic";
-	}
+    interface CustomizableSources {
+        bilibili: "bilibili";
+        azsearch: "amazonmusic";
+    }
 
-	interface HoshimiEvents extends NodelinkEvents {}
+    interface HoshimiEvents extends NodelinkEvents {}
 }

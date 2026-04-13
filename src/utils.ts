@@ -18,13 +18,8 @@ export const logger: Logger = new Logger({ name: "Hoshimi" });
  * @param {K} keys The keys to omit.
  * @returns {Omit<T, K>}
  */
-export const omitKeys = <T extends Record<string, any>, K extends keyof T>(
-	obj: T,
-	keys: K[],
-): Omit<T, K> =>
-	Object.fromEntries(
-		Object.entries(obj).filter(([key]) => !keys.includes(key as K)),
-	) as Omit<T, K>;
+export const omitKeys = <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> =>
+    Object.fromEntries(Object.entries(obj).filter(([key]) => !keys.includes(key as K))) as Omit<T, K>;
 
 /**
  *
@@ -41,8 +36,7 @@ export const isBase64 = (str: string): boolean => base64.test(str);
  * @param {number} [depth=0] The depth to inspect the object.
  * @returns {string} The inspected object as a string.
  */
-export const inspect = (obj: any, depth: number = 0): string =>
-	nodeInspect(obj, { depth });
+export const inspect = (obj: any, depth: number = 0): string => nodeInspect(obj, { depth });
 
 /**
  *
@@ -51,8 +45,7 @@ export const inspect = (obj: any, depth: number = 0): string =>
  * @param {number} length The length to slice.
  * @returns {string} The sliced text.
  */
-export const truncate = (text: string, length: number = 240): string =>
-	text.length > length ? `${text.slice(0, length - 3)}...` : text;
+export const truncate = (text: string, length: number = 240): string => (text.length > length ? `${text.slice(0, length - 3)}...` : text);
 
 /**
  *
@@ -60,5 +53,4 @@ export const truncate = (text: string, length: number = 240): string =>
  * @param {string} str The string to capitalize.
  * @returns {string} The capitalized string.
  */
-export const capitalize = (str: string): string =>
-	str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);

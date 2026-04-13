@@ -9,60 +9,47 @@ interface HoshimiNode extends Omit<PlayerJson["node"], "options"> {}
  * @extends {PlayerJson}
  */
 export interface SessionJson
-	extends Omit<
-		PlayerJson,
-		| "ping"
-		| "createdTimestamp"
-		| "lastPositionUpdate"
-		| "paused"
-		| "playing"
-		| "queue"
-		| "filters"
-		| "node"
-	> {
-	requester: HoshimiUser;
-	node: HoshimiNode;
-	enabledAutoplay?: boolean;
-	enabledLyrics?: boolean;
-	lyricsId?: string;
-	messageId?: string;
+    extends Omit<PlayerJson, "ping" | "createdTimestamp" | "lastPositionUpdate" | "paused" | "playing" | "queue" | "filters" | "node"> {
+    requester: HoshimiUser;
+    node: HoshimiNode;
+    enabledAutoplay?: boolean;
+    enabledLyrics?: boolean;
+    lyricsId?: string;
+    messageId?: string;
 }
 
 /**
  * The interface of the Hoshimi user.
  */
 export interface HoshimiUser {
-	id: string;
-	username: string;
-	tag: string;
+    id: string;
+    username: string;
+    tag: string;
 }
 
 /**
  * The interface of the lavalink event.
  */
 export interface LavalinkEvent<K extends keyof HoshimiEvents> {
-	/**
-	 * The event name.
-	 * @type {K}
-	 */
-	name: K;
-	/**
-	 * The event run callback.
-	 * @type {LavalinkEventRun<K>}
-	 */
-	run: LavalinkEventRun<K>;
-	/**
-	 * The event once property.
-	 * @type {boolean}
-	 * @default false
-	 */
-	once?: boolean;
+    /**
+     * The event name.
+     * @type {K}
+     */
+    name: K;
+    /**
+     * The event run callback.
+     * @type {LavalinkEventRun<K>}
+     */
+    run: LavalinkEventRun<K>;
+    /**
+     * The event once property.
+     * @type {boolean}
+     * @default false
+     */
+    once?: boolean;
 }
 
 /**
  * The interface of the lavalink event run function.
  */
-export type LavalinkEventRun<K extends keyof HoshimiEvents> = (
-	client: UsingClient,
-	...args: HoshimiEvents[K]
-) => Awaitable<any>;
+export type LavalinkEventRun<K extends keyof HoshimiEvents> = (client: UsingClient, ...args: HoshimiEvents[K]) => Awaitable<any>;
