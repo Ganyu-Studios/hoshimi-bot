@@ -1,6 +1,6 @@
 import { LoadType } from "hoshimi";
 import { Command, createStringOption, Declare, type GuildCommandContext, Options } from "seyfert";
-import { TimeFormat } from "../../time.js";
+import { TimeFormat } from "../../utils/time.js";
 
 const options = {
     query: createStringOption({

@@ -1,8 +1,8 @@
 import { ActionRow, Button, Command, Declare, Embed, type GuildCommandContext, type Message, type WebhookMessage } from "seyfert";
 import { EmbedColors } from "seyfert/lib/common/index.js";
 import { ButtonStyle } from "seyfert/lib/types/index.js";
-import { ms } from "../../time.js";
-import { capitalize } from "../../utils.js";
+import { ms } from "../../utils/time.js";
+import { capitalize } from "../../utils/utils.js";
 
 @Declare({
     name: "lyrics",

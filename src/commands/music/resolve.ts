@@ -1,6 +1,6 @@
 import { LoadType } from "hoshimi";
 import { AttachmentBuilder, Command, createStringOption, Declare, Formatter, type GuildCommandContext, Options } from "seyfert";
-import { isBase64, omitKeys } from "../../utils.js";
+import { isBase64, omitKeys } from "../../utils/utils.js";
 
 const options = {
     query: createStringOption({

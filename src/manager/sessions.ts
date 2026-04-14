@@ -3,7 +3,7 @@ import type { NodeOptions, Omit, PlayerJson } from "hoshimi";
 import MeowDB from "meowdb";
 import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
 import { Constants } from "../constants.js";
-import { ms } from "../time.js";
+import { ms } from "../utils/time.js";
 
 /**
  * Lavalink node options without the `sessionId`.

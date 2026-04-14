@@ -31,7 +31,7 @@
         "dotenv": "^17.4.2",
         "hoshimi": "0.3.10-dev-24219231647.0",
         "meowdb": "^2.2.3",
-        "redis": "^5.11.0",
+        "redis": "^5.12.1",
         "seyfert": "github:tiramisulabs/seyfert",
         "yunaforseyfert": "github:SagiriIkeda/yunaforseyfert"
     },

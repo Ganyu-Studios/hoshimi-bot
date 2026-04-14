@@ -1,5 +1,5 @@
 import { type QueueJson, QueueStorageAdapter, type RestOrArray } from "hoshimi";
-import type { RedisClient } from "../redis.js";
+import type { RedisClient } from "../utils/redis.js";
 
 /**
  * Class representing a Redis storage adapter for Hoshimi.

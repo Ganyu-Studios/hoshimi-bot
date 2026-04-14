@@ -1,6 +1,6 @@
 import { EventNames, SourceNames } from "hoshimi";
 import { createLavalinkEvent } from "../../manager/events.js";
-import { TimeFormat } from "../../time.js";
+import { TimeFormat } from "../../utils/time.js";
 
 export default createLavalinkEvent({
     name: EventNames.TrackStart,

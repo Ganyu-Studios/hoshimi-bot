@@ -11,8 +11,8 @@ import {
 } from "seyfert";
 import { EmbedColors, Formatter } from "seyfert/lib/common/index.js";
 import { DeclareParserConfig, ParserRecommendedConfig, Watch, Yuna } from "yunaforseyfert";
-import { ms } from "../../time.js";
-import { inspect, truncate } from "../../utils.js";
+import { ms } from "../../utils/time.js";
+import { inspect, truncate } from "../../utils/utils.js";
 
 const secretsRegex = /\b(?:client\.(?:config)|config|env|process\.(?:env|exit)|eval|atob|btoa)\b/;
 const concatRegex = /".*?"\s*\+\s*".*?"(?:\s*\+\s*".*?")*/;

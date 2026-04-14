@@ -4,7 +4,6 @@ import { createHoshimi, type Hoshimi, type LyricsResult, Player, SearchSources, 
 import { Client, type ParseClient, type UsingClient } from "seyfert";
 import { HandleCommand } from "seyfert/lib/commands/handle.js";
 import { Yuna } from "yunaforseyfert";
-import { autoplayFn } from "./autoplay.js";
 import { LavalinkHandler } from "./manager/handler.js";
 import { Sessions } from "./manager/sessions.js";
 import { RedisStorage } from "./manager/storage.js";
@@ -12,8 +11,9 @@ import type { HoshimiUser } from "./manager/types.js";
 import { HoshimiLyricsManager } from "./nodelink/lyrics.js";
 import { HoshimiNode } from "./nodelink/nodelink.js";
 import type { NodelinkEvents } from "./nodelink/types.js";
-import { RedisClient } from "./redis.js";
-import { ms } from "./time.js";
+import { autoplayFn } from "./utils/autoplay.js";
+import { RedisClient } from "./utils/redis.js";
+import { ms } from "./utils/time.js";
 
 /**
  * The main client of the bot.
@@ -31,7 +31,7 @@ const client: Client<true> & UsingClient = new Client({
             content: `**${client.me.username}** is thinking...`,
         }),
     },
-}) as Client<true> & UsingClient;
+});
 
 /**
  * The Redis client instance.

@@ -3,7 +3,7 @@ import { Constants } from "../../constants.js";
 import { createLavalinkEvent } from "../../manager/events.js";
 import { Sessions } from "../../manager/sessions.js";
 import type { HoshimiUser, SessionJson } from "../../manager/types.js";
-import { omitKeys } from "../../utils.js";
+import { omitKeys } from "../../utils/utils.js";
 
 export default createLavalinkEvent({
     name: EventNames.PlayerUpdate,

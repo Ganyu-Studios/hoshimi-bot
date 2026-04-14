@@ -1,6 +1,6 @@
 import { EventNames } from "hoshimi";
 import { createLavalinkEvent } from "../../manager/events.js";
-import { TimeFormat } from "../../time";
+import { TimeFormat } from "../../utils/time.js";
 
 export default createLavalinkEvent({
     name: EventNames.NodeReconnecting,
