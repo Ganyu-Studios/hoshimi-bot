@@ -54,3 +54,10 @@ export const truncate = (text: string, length: number = 240): string => (text.le
  * @returns {string} The capitalized string.
  */
 export const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
+
+/**
+ * Wait for a specified amount of time.
+ * @param {number} ms The amount of time to wait in milliseconds.
+ * @returns {Promise<void>} A promise that resolves after the specified time has passed.
+ */
+export const wait = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
