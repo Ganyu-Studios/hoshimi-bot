@@ -1,4 +1,4 @@
-import { type QueueJson, QueueStorageAdapter, type RestOrArray } from "hoshimi";
+import { type QueueJSON, QueueStorageAdapter, type RestOrArray } from "hoshimi";
 import type { RedisClient } from "../utils/redis.js";
 
 /**
@@ -11,13 +11,13 @@ export class RedisStorage extends QueueStorageAdapter {
         super();
     }
 
-    override async get(key: string): Promise<QueueJson | undefined> {
+    override async get(key: string): Promise<QueueJSON | undefined> {
         const data = await this.redis.instance.get(this.buildKey(this.namespace, key));
         if (!data) return undefined;
 
         return this.parse(data);
     }
-    override async set(key: string, value: QueueJson): Promise<void> {
+    override async set(key: string, value: QueueJSON): Promise<void> {
         await this.redis.instance.set(this.buildKey(this.namespace, key), this.stringify(value));
     }
 
@@ -35,8 +35,8 @@ export class RedisStorage extends QueueStorageAdapter {
         return result > 0;
     }
 
-    override parse(value: unknown): QueueJson {
-        return typeof value === "string" ? JSON.parse(value) : (value as QueueJson);
+    override parse(value: unknown): QueueJSON {
+        return typeof value === "string" ? JSON.parse(value) : (value as QueueJSON);
     }
 
     override stringify<R = string>(value: unknown): R {

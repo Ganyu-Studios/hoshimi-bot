@@ -1,15 +1,15 @@
-import type { HoshimiEvents, Omit, PlayerJson } from "hoshimi";
+import type { HoshimiEvents, Omit, PlayerJSON } from "hoshimi";
 import type { UsingClient } from "seyfert";
 import type { Awaitable } from "seyfert/lib/common/index.js";
 
-interface HoshimiNode extends Omit<PlayerJson["node"], "options"> {}
+interface HoshimiNode extends Omit<PlayerJSON["node"], "options"> {}
 
 /**
  * The interface of the session json.
- * @extends {PlayerJson}
+ * @extends {PlayerJSON}
  */
 export interface SessionJson
-    extends Omit<PlayerJson, "ping" | "createdTimestamp" | "lastPositionUpdate" | "paused" | "playing" | "queue" | "filters" | "node"> {
+    extends Omit<PlayerJSON, "ping" | "createdTimestamp" | "lastPositionUpdate" | "paused" | "playing" | "queue" | "filters" | "node"> {
     requester: HoshimiUser;
     node: HoshimiNode;
     enabledAutoplay?: boolean;

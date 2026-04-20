@@ -7,6 +7,7 @@ import { capitalize } from "../../utils/utils.js";
 @Declare({
     name: "lyrics",
     description: "Get the lyrics for the current track.",
+    aliases: ["lyric", "ly"],
     integrationTypes: ["GuildInstall"],
     contexts: ["Guild"],
 })

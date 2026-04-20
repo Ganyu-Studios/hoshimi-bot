@@ -30,7 +30,7 @@ export default createLavalinkEvent({
             player.voice.patch(data.voice);
 
             await player.connect();
-            await player.queue.utils.sync(true, false);
+            await player.queue.utils.sync({ override: true, syncCurrent: false });
 
             if (data.track) player.queue.current = await player.queue.utils.build(data.track, session.requester);
 

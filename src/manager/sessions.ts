@@ -1,5 +1,5 @@
 import { mkdir } from "node:fs/promises";
-import type { NodeOptions, Omit, PlayerJson } from "hoshimi";
+import type { NodeOptions, Omit, PlayerJSON } from "hoshimi";
 import MeowDB from "meowdb";
 import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
 import { Constants } from "../constants.js";
@@ -14,7 +14,7 @@ type NonResumableNodeOptions = Omit<NodeOptions, "sessionId">;
 /**
  * The player json with the required properties.
  */
-type RequiredPlayerJson = MakeRequired<PlayerJson>;
+type RequiredPlayerJson = MakeRequired<PlayerJSON>;
 
 /**
  * The directory where the cache is stored.
@@ -44,7 +44,8 @@ const storage: MeowDB = new MeowDB({ dir, name });
 const ids: Map<string, string> = new Map<string, string>(
     Object.values<RequiredPlayerJson>(storage.all())
         .filter(
-            (session): session is RequiredPlayerJson => typeof session.node.id === "string" && typeof session.node.sessionId === "string",
+            (session): session is RequiredPlayerJson =>
+                typeof session.node === "object" && typeof session.node.id === "string" && typeof session.node.sessionId === "string",
         )
         .map((session) => [session.node.id, session.node.sessionId!]),
 );

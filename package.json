@@ -29,7 +29,7 @@
     },
     "dependencies": {
         "dotenv": "^17.4.2",
-        "hoshimi": "0.3.10-dev-24579010058.0",
+        "hoshimi": "0.3.10-dev-24643103714.0",
         "meowdb": "^2.2.3",
         "redis": "^5.12.1",
         "seyfert": "github:tiramisulabs/seyfert",
@@ -49,6 +49,9 @@
             "esbuild",
             "seyfert",
             "yunaforseyfert"
-        ]
+        ],
+        "overrides": {
+            "hoshimi": "link:../../../../AppData/Local/pnpm/global/5/node_modules/hoshimi"
+        }
     }
 }

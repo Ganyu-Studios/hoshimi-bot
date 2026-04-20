@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  hoshimi: link:../../../../AppData/Local/pnpm/global/5/node_modules/hoshimi
+
 importers:
 
   .:
@@ -12,8 +15,8 @@ importers:
         specifier: ^17.4.2
         version: 17.4.2
       hoshimi:
-        specifier: 0.3.10-dev-24579010058.0
-        version: 0.3.10-dev-24579010058.0
+        specifier: 0.3.10-dev-24643103714.0
+        version: 0.3.10-dev-24643103714.0
       meowdb:
         specifier: ^2.2.3
         version: 2.2.3
@@ -362,8 +365,8 @@ packages:
   get-tsconfig@4.13.7:
     resolution: {integrity: sha512-7tN6rFgBlMgpBML5j8typ92BKFi2sFQvIdpAqLA2beia5avZDrMs0FLZiM5etShWq5irVyGcGMEA1jcDaK7A/Q==}
 
-  hoshimi@0.3.10-dev-24579010058.0:
-    resolution: {integrity: sha512-ouIDQqIBHkQZ9ykgAx8VuvEPWWejROya3xSGsIs5+loBPet1+1QethWTHSd6je5kHhHkIMHLjroDNlXE6QMtdg==}
+  hoshimi@0.3.10-dev-24643103714.0:
+    resolution: {integrity: sha512-hf/xVJ8iGsEVEiTh1MN3iQKKCnjrxzHgc9HQWLdTzHgbYfPpSp4o4z4uiqo/Usq5UdQbe/imRLJJ3amy/m9AUw==}
 
   husky@9.1.7:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
@@ -698,7 +701,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  hoshimi@0.3.10-dev-24579010058.0:
+  hoshimi@0.3.10-dev-24643103714.0:
     dependencies:
       ws: 8.20.0
     transitivePeerDependencies:
