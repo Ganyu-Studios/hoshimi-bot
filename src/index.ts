@@ -44,9 +44,11 @@ client.manager = createHoshimi({
     sendPayload: (guildId, payload) => client.gateway.send(client.gateway.calculateShardId(guildId), payload),
     defaultSearchSource: SearchSources.Spotify,
     nodeOptions: {
-        resumable: true,
-        resumeByLibrary: true,
-        resumeTimeout: ms("5min"),
+        sessionOptions: {
+            byLibrary: true,
+            resumable: true,
+            timeout: ms("30s"),
+        },
     },
     queueOptions: {
         autoplayFn,
