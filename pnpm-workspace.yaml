@@ -1,0 +1,6 @@
+allowBuilds:
+  seyfert: true
+  "@biomejs/biome": true
+  esbuild: true
+
+packages: []
