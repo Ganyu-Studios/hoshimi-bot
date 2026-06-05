@@ -1,4 +1,4 @@
-import { type QueueJSON, QueueStorageAdapter, type RestOrArray } from "hoshimi";
+import { type QueueJSON, QueueStorageAdapter } from "hoshimi";
 import type { RedisClient } from "../utils/redis.js";
 
 /**
@@ -41,10 +41,5 @@ export class RedisStorage extends QueueStorageAdapter {
 
     override stringify<R = string>(value: unknown): R {
         return (typeof value === "object" ? JSON.stringify(value) : value) as R;
-    }
-
-    public buildKey(...parts: RestOrArray<string>): string {
-        const flattern = parts.flat();
-        return flattern.join(":");
     }
 }

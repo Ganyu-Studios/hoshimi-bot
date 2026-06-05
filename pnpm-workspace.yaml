@@ -3,4 +3,7 @@ allowBuilds:
   "@biomejs/biome": true
   esbuild: true
 
+minimumReleaseAgeExclude:
+  - hoshimi
+
 packages: []
