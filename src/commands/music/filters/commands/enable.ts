@@ -14,6 +14,10 @@ const options = {
             { name: "Vibrato", value: "vibrato" },
             { name: "Echo (N/A)", value: "echo" },
             { name: "Reverb (N/A)", value: "reverb" },
+            { name: "Tremolo", value: "tremolo" },
+            { name: "Vibrato", value: "vibrato" },
+            { name: "Distortion", value: "distortion" },
+            { name: "Timescale", value: "timescale" },
         ] as const,
     }),
 };
@@ -86,6 +90,57 @@ export default class EnableFilterSubcommand extends SubCommand {
 
                 return ctx.editOrReply({
                     content: "Enabled the karaoke filter! The effect will be applied shortly.",
+                });
+            }
+
+            case "tremolo": {
+                await player.filterManager.setTremolo({
+                    frequency: 2,
+                    depth: 0.5,
+                });
+
+                return ctx.editOrReply({
+                    content: "Enabled the tremolo filter! The effect will be applied shortly.",
+                });
+            }
+
+            case "vibrato": {
+                await player.filterManager.setVibrato({
+                    frequency: 2,
+                    depth: 0.5,
+                });
+
+                return ctx.editOrReply({
+                    content: "Enabled the vibrato filter! The effect will be applied shortly.",
+                });
+            }
+
+            case "distortion": {
+                await player.filterManager.setDistortion({
+                    sinOffset: 0,
+                    sinScale: 1,
+                    cosOffset: 0,
+                    cosScale: 1,
+                    tanOffset: 0,
+                    tanScale: 1,
+                    offset: 0,
+                    scale: 1,
+                });
+
+                return ctx.editOrReply({
+                    content: "Enabled the distortion filter! The effect will be applied shortly.",
+                });
+            }
+
+            case "timescale": {
+                await player.filterManager.setTimescale({
+                    speed: 1.5,
+                    pitch: 1.0,
+                    rate: 1.0,
+                });
+
+                return ctx.editOrReply({
+                    content: "Enabled the timescale filter (1.5x speed)! The effect will be applied shortly.",
                 });
             }
         }

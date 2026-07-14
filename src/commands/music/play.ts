@@ -21,7 +21,7 @@ export default class PlayCommand extends Command {
     override async run(ctx: GuildCommandContext<typeof options>) {
         const { client, options } = ctx;
 
-        if (!client.manager.isUseable())
+        if (!client.manager.isUsable())
             return ctx.editOrReply({
                 content: "The bot is not connected to any node. For now is not useable.",
             });

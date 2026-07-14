@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 import { createHoshimi, type Hoshimi, type LyricsResult, Player, SearchSources, Structures } from "hoshimi";
-import { Client, type ParseClient, type UsingClient } from "seyfert";
+import { Client, type ParseClient } from "seyfert";
 import { HandleCommand } from "seyfert/lib/commands/handle.js";
 import { Yuna } from "yunaforseyfert";
 import { LavalinkHandler } from "./manager/handler.js";
@@ -15,11 +15,16 @@ import { autoplayFn } from "./utils/autoplay.js";
 import { RedisClient } from "./utils/redis.js";
 import { ms } from "./utils/time.js";
 
+interface HoshimiClient extends Client<true> {
+    manager: Hoshimi;
+}
+
 /**
  * The main client of the bot.
- * @type {Client<true> & UsingClient}
+ * @type {HoshimiClient}
  */
-const client: Client<true> & UsingClient = new Client({
+//@ts-expect-error crappy plugins shit
+const client: HoshimiClient = new Client({
     allowedMentions: {
         parse: ["roles", "users"],
         replied_user: false,
@@ -41,7 +46,9 @@ const redis: RedisClient = new RedisClient(client);
 
 // Initialize the manager with a helper function.
 client.manager = createHoshimi({
-    sendPayload: (guildId, payload) => client.gateway.send(client.gateway.calculateShardId(guildId), payload),
+    sendPayload: async (guildId, payload) => {
+        await client.gateway.send(client.gateway.calculateShardId(guildId), payload);
+    },
     defaultSearchSource: SearchSources.Spotify,
     nodeOptions: {
         sessionOptions: {
@@ -104,14 +111,12 @@ const handler: LavalinkHandler = new LavalinkHandler(client);
 })();
 
 declare module "seyfert" {
-    interface UsingClient extends ParseClient<Client<true>> {}
+    interface SeyfertRegistry {
+        client: ParseClient<HoshimiClient>;
+    }
 
     interface InternalOptions {
         withPrefix: true;
-    }
-
-    interface Client {
-        manager: Hoshimi;
     }
 
     interface ExtendedRCLocations {
