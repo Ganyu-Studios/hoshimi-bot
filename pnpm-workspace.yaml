@@ -6,5 +6,12 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - hoshimi
   - tsx@4.23.1
+  - '@redis/bloom@6.2.0'
+  - '@redis/client@6.2.0'
+  - '@redis/json@6.2.0'
+  - '@redis/search@6.2.0'
+  - '@redis/time-series@6.2.0'
+  - lint-staged@17.3.0
+  - redis@6.2.0
 
 packages: []
