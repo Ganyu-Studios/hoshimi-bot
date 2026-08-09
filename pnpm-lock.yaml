@@ -12,8 +12,8 @@ importers:
         specifier: ^17.4.2
         version: 17.4.2
       hoshimi:
-        specifier: 0.5.1
-        version: 0.5.1
+        specifier: 0.5.2
+        version: 0.5.2
       meowdb:
         specifier: ^2.2.3
         version: 2.2.3
@@ -438,8 +438,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  hoshimi@0.5.1:
-    resolution: {integrity: sha512-WH9NLzSZl4d6W8RdvwRJkQy1e8g4lk84WZMuDpW5t0QjBRar9e5mFN5X4c6B+Bg729aS6v6bkCjqRwW+t2bR8Q==}
+  hoshimi@0.5.2:
+    resolution: {integrity: sha512-UBVwJxE8hMdgIoQyveJPg/mlgLP/YdAN14K2j6hKHkZF9ab6BWAuOOfdDRAh0b/3yPrU5D63TnydG/WkSMGlGg==}
 
   husky@9.1.7:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
@@ -743,7 +743,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  hoshimi@0.5.1:
+  hoshimi@0.5.2:
     dependencies:
       ws: 8.21.3
     transitivePeerDependencies:

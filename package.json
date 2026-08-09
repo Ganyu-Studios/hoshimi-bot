@@ -29,7 +29,7 @@
     },
     "dependencies": {
         "dotenv": "^17.4.2",
-        "hoshimi": "0.5.1",
+        "hoshimi": "0.5.2",
         "meowdb": "^2.2.3",
         "redis": "^6.2.0",
         "seyfert": "5.0.1-dev-30507709234.0",
