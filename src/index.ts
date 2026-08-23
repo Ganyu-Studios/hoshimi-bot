@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 import { createHoshimi, type Hoshimi, type LyricsResult, Player, SearchSources, Structures } from "hoshimi";
-import { Client, type ParseClient } from "seyfert";
+import { Client, Logger, type ParseClient } from "seyfert";
 import { HandleCommand } from "seyfert/lib/commands/handle.js";
 import { Yuna } from "yunaforseyfert";
 import { LavalinkHandler } from "./manager/handler.js";
@@ -14,7 +14,14 @@ import type { NodelinkEvents } from "./nodelink/types.js";
 import { autoplayFn } from "./utils/autoplay.js";
 import { RedisClient } from "./utils/redis.js";
 import { ms } from "./utils/time.js";
+import { PluginRegistry } from "hoshimi";
+import { PluginCapabilities } from "hoshimi";
 
+// Set the logger options, like the directory and the file to save the logs.
+Logger.dirname = "logs";
+Logger.saveOnFile = "all";
+
+// i don't give a shit about plugins.
 interface HoshimiClient extends Client<true> {
     manager: Hoshimi;
 }
@@ -96,6 +103,12 @@ Structures.Node = (...args) => new HoshimiNode(...args);
 //Extend the lyrics manager to support nodelink.
 Structures.LyricsManager = (...args) => new HoshimiLyricsManager(...args);
 
+// Register the plugin to the plugin registry.
+PluginRegistry.register({
+    name: "pulselink-plugin",
+    capability: PluginCapabilities.ExtraSources,
+});
+
 /**
  * The lavalink handler of the bot.
  * @type {LavalinkHandler}
@@ -145,6 +158,10 @@ declare module "hoshimi" {
     interface CustomizableSources {
         bilibili: "bilibili";
         azsearch: "amazonmusic";
+    }
+
+    interface CustomizablePluginNames {
+        "pulselink-plugin": "pulselink-plugin";
     }
 
     interface HoshimiEvents extends NodelinkEvents {}

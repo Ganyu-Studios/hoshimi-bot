@@ -1,4 +1,4 @@
-import { EventNames, type PlayerStructure } from "hoshimi";
+import { EventNames, StorageError, type PlayerStructure } from "hoshimi";
 import { createLavalinkEvent } from "../../manager/events.js";
 import { Sessions } from "../../manager/sessions.js";
 import type { SessionJson } from "../../manager/types.js";
@@ -30,7 +30,11 @@ export default createLavalinkEvent({
             player.voice.patch(data.voice);
 
             await player.connect();
-            await player.queue.utils.sync({ override: true, syncCurrent: false });
+            await player.queue.utils.sync({ override: true, syncCurrent: false }).catch((error) => {
+                if (error instanceof StorageError)
+                    return client.logger.error(`[Hoshimi] Failed to sync queue for guild ${data.guildId}: ${error.message}`);
+                throw error;
+            });
 
             if (data.track) player.queue.current = await player.queue.utils.build(data.track, session.requester);
 

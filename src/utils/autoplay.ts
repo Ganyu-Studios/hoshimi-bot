@@ -46,20 +46,21 @@ export async function autoplayFn(player: PlayerStructure, lastTrack: TrackResolv
         case SourceNames.Spotify: {
             if (!lastTrack.info.identifier) return;
 
-            const res = await player.search({
+            const query = await player.search({
                 query: lastTrack.info.identifier,
                 source: SearchSources.SpotifyTrackMix,
                 requester: lastTrack.requester,
             });
 
-            if (res.tracks.length) {
-                const index: number = Math.floor(Math.random() * res.tracks.length);
+            if (query.tracks.length) {
+                const index: number = Math.floor(Math.random() * query.tracks.length);
 
-                const track = filter(res.tracks)[index];
+                const track = filter(query.tracks)[index];
                 if (!track) return;
 
-                player.queue.add(track);
+                await player.queue.add(track);
             }
+
             break;
         }
 
@@ -67,17 +68,16 @@ export async function autoplayFn(player: PlayerStructure, lastTrack: TrackResolv
         case SourceNames.YoutubeMusic: {
             if (!lastTrack.info.identifier) return;
 
-            const search = `https://www.youtube.com/watch?v=${lastTrack.info.identifier}&list=RD${lastTrack.info.identifier}`;
-            const res: QueryResult = await player.search({
-                query: search,
+            const query: QueryResult = await player.search({
+                query: `https://www.youtube.com/watch?v=${lastTrack.info.identifier}&list=RD${lastTrack.info.identifier}`,
                 requester: lastTrack.requester,
             });
 
-            if (res.tracks.length) {
-                const random: number = Math.floor(Math.random() * res.tracks.length);
-                const tracks: TrackStructure[] = filter(res.tracks).slice(random, random + max);
+            if (query.tracks.length) {
+                const random: number = Math.floor(Math.random() * query.tracks.length);
+                const tracks: TrackStructure[] = filter(query.tracks).slice(random, random + max);
 
-                player.queue.add(tracks);
+                await player.queue.add(tracks);
             }
         }
     }

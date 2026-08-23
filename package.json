@@ -4,7 +4,7 @@
     "description": "A example bot to show how to use hoshimi",
     "main": "./src/index.ts",
     "type": "module",
-    "packageManager": "pnpm@11.21.0+sha512.521705bce689924eac72f5a3587122f362689ef6571e55ba80076fd637c11132ecffada26fad4ea79c485bfddbfd3d5a2a5b05805a77e893de71ec8a6cca3bb1",
+    "packageManager": "pnpm@11.23.0+sha512.f00082e5b283a199b74e079da28d155c008fe232f44c8a06ea7ddfa014ecf719fc362f790ecc67b28106ddac2afb24c49a9a079159da560b2ce7d1e98efd11af",
     "keywords": [],
     "author": "Ganyu Studios",
     "license": "MIT",
@@ -29,18 +29,18 @@
     },
     "dependencies": {
         "dotenv": "^17.4.2",
-        "hoshimi": "0.5.3",
+        "hoshimi": "0.5.6-dev-32659973548.0",
         "meowdb": "^2.2.3",
-        "redis": "^6.2.0",
-        "seyfert": "5.0.1-dev-30507709234.0",
+        "redis": "^6.2.1",
+        "seyfert": "5.0.1-dev-32531838923.0",
         "yunaforseyfert": "1.2.3"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.5.7",
+        "@biomejs/biome": "^2.5.10",
         "@types/node": "^26.2.0",
         "husky": "^9.1.7",
         "lint-staged": "^17.3.0",
-        "tsx": "^4.23.11",
+        "tsx": "^4.23.12",
         "typescript": "^7.0.2"
     }
 }

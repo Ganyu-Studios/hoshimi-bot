@@ -98,5 +98,7 @@ export default class PlayCommand extends Command {
                 }
                 break;
         }
+
+        await player.data.set("enabledAutoplay", true);
     }
 }

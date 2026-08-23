@@ -1,6 +1,4 @@
 import { Command, Declare, type GuildCommandContext, type MessageStructure, type WebhookMessageStructure } from "seyfert";
-import { ms } from "../../utils/time";
-import { wait } from "../../utils/utils";
 
 @Declare({
     name: "test",
@@ -27,28 +25,11 @@ export default class TestCommand extends Command {
         const player = client.manager.getPlayer(ctx.guildId);
         if (!player) return ctx.editOrReply({ content: "No player found." });
 
-        const requester = {
-            id: ctx.author.id,
-            username: ctx.author.username,
-            tag: ctx.author.tag,
-        };
+        if (!player.playing && !player.queue.current) return ctx.editOrReply({ content: "No track is currently playing." });
 
-        const tracks = await Promise.allSettled([
-            await player.search({ query: "starting soon tiasu", requester }),
-            await player.search({ query: "aishite aishite ado", requester }),
-        ]).then((results) => results.filter((result) => result.status === "fulfilled").map((result) => result.value.tracks[0]));
+        await player.data.set("enabledAutoplay", false);
+        await player.stop({ clearQueue: true, destroy: false });
 
-        await player.queue.add(tracks);
-
-        if (!player.isPlaying()) await player.play();
-
-        await wait(ms("5s"));
-        await player.skip();
-
-        await wait(ms("5s"));
-        const previous = await player.queue.previous();
-        if (previous) await player.queue.unshift(previous);
-
-        await player.skip();
+        await ctx.editOrReply({ content: "Stopping the player and clearing the queue..." });
     }
 }
