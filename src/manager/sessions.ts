@@ -1,9 +1,10 @@
 import { mkdir } from "node:fs/promises";
-import type { NodeOptions, Omit, PlayerJSON } from "hoshimi";
+import type { NodeOptions, Omit, PlayerJSON, PlayerStructure } from "hoshimi";
 import MeowDB from "meowdb";
 import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
 import { Constants } from "../constants.js";
 import { ms } from "../utils/time.js";
+import { omitKeys } from "../utils/utils.js";
 
 /**
  * Lavalink node options without the `sessionId`.
@@ -103,6 +104,44 @@ export const Sessions = {
                 ...node,
                 sessionId: ids.get(node.id),
             };
+        });
+    },
+    /**
+     *
+     * Snapshot a player into its persisted session, so it can be recreated after a restart, node resume or a 24/7
+     * autoreconnect. Mirrors the shape read back by `resumeListener` and the destroy autoreconnect. Callers gate
+     * this on `config.sessions.enabled`.
+     * @param {PlayerStructure} player The player to persist.
+     * @returns {Promise<void>} A promise that resolves once the session is written.
+     */
+    async save(player: PlayerStructure): Promise<void> {
+        const newPlayerJson: PlayerJSON = player.toJSON();
+        const newJson = omitKeys(newPlayerJson, [
+            "ping",
+            "createdTimestamp",
+            "lastPositionUpdate",
+            "paused",
+            "playing",
+            "queue",
+            "filters",
+        ]);
+
+        const requester = player.queue.current?.requester ?? {};
+        const autoplay = await player.data.get("enabledAutoplay");
+        const lyrics = await player.data.get("enabledLyrics");
+        const lyricsId = await player.data.get("lyricsId");
+
+        this.set(player.guildId, {
+            ...newJson,
+            requester,
+            enabledAutoplay: autoplay,
+            enabledLyrics: lyrics,
+            lyricsId: lyricsId,
+            messageId: player.textId,
+            node: {
+                id: player.node.id,
+                sessionId: player.node.sessionId,
+            },
         });
     },
 };
